@@ -1,5 +1,8 @@
-# This is a sample aws-auth-patch.yml file. 
-# Actual aws-auth-patch.yml will be created at /System/Volumes/Data/private/tmp/aws-auth-patch.yml path.
+# aws-auth ConfigMap of the simple-jwt-api cluster (kubectl get -n kube-system configmap/aws-auth -o yaml),
+# with the CodeBuild kubectl role mapped to system:masters. Applied with:
+#   eksctl create iamidentitymapping --cluster simple-jwt-api --region us-east-2 \
+#     --arn arn:aws:iam::760216051599:role/UdacityFlaskDeployCBKubectlRole --group system:masters --username build
+# (equivalent to: kubectl patch configmap/aws-auth -n kube-system --patch "$(cat aws-auth-patch.yml)")
 
 apiVersion: v1
 data:
@@ -7,15 +10,15 @@ data:
     - groups:
       - system:bootstrappers
       - system:nodes
-      rolearn: arn:aws:iam::519002666132:role/eksctl-simple-jwt-api-nodegroup-n-NodeInstanceRole-1DBHED9TMYRZZ
+      rolearn: arn:aws:iam::760216051599:role/eksctl-simple-jwt-api-nodegroup-ng-NodeInstanceRole-OokUOeliwg5k
       username: system:node:{{EC2PrivateDNSName}}
+    - groups:
       - system:masters
-      rolearn: arn:aws:iam::519002666132:role/UdacityFlaskDeployCBKubectlRole
+      rolearn: arn:aws:iam::760216051599:role/UdacityFlaskDeployCBKubectlRole
       username: build
+  mapUsers: |
+    []
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2022-05-11T11:16:26Z"
   name: aws-auth
   namespace: kube-system
-  resourceVersion: "1631"
-  uid: 86402a4e-a9ff-4721-8c24-f0c4258f7440
