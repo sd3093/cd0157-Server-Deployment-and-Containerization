@@ -21,6 +21,14 @@ def client():
     yield client
 
 
+def _get_token(client):
+    body = {'email': EMAIL,
+            'password': PASSWORD}
+    response = client.post('/auth',
+                           data=json.dumps(body),
+                           content_type='application/json')
+    return response
+
 
 def test_health(client):
     response = client.get('/')
@@ -29,12 +37,30 @@ def test_health(client):
 
 
 def test_auth(client):
-    body = {'email': EMAIL,
-            'password': PASSWORD}
-    response = client.post('/auth', 
-                           data=json.dumps(body),
-                           content_type='application/json')
+    response = _get_token(client)
 
     assert response.status_code == 200
     token = response.json['token']
     assert token is not None
+
+
+def test_contents(client):
+    token = _get_token(client).json['token']
+    response = client.get('/contents',
+                          headers={'Authorization': 'Bearer ' + token})
+
+    assert response.status_code == 200
+    assert response.json['email'] == EMAIL
+    assert 'exp' in response.json
+    assert 'nbf' in response.json
+
+
+def test_contents_without_token(client):
+    response = client.get('/contents')
+    assert response.status_code == 401
+
+
+def test_contents_with_bad_token(client):
+    response = client.get('/contents',
+                          headers={'Authorization': 'Bearer not-a-valid-token'})
+    assert response.status_code == 401

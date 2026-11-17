@@ -1,6 +1,6 @@
-# Use the `python:3.9` as a source image from the Amazon ECR Public Gallery
-# We are not using `python:3.7.2-slim` from Dockerhub because it has put a  pull rate limit.
-FROM public.ecr.aws/sam/build-python3.9:latest
+# Use the official `python:3.11` image from the Amazon ECR Public Gallery
+# (a mirror of the Docker Hub image, so there is no Docker Hub pull rate limit).
+FROM public.ecr.aws/docker/library/python:3.11
 
 # Set up an app directory for your code
 COPY . /app

@@ -1,5 +1,31 @@
 # Deploying a Flask API
 
+## Submission notes (what was done)
+
+- **Dockerfile** - `public.ecr.aws/docker/library/python:3.11` base image (ECR Public mirror of the official image, no Docker Hub rate limit), installs `requirements.txt`, entrypoint `["gunicorn", "-b", ":8080", "main:APP"]`.
+- **JWT_SECRET in a file** - `.env_file.example` holds `JWT_SECRET` and `LOG_LEVEL` for running the container locally (copy it to `.env_file`, which stays git-ignored). In the cluster the pods get `JWT_SECRET` from the Kubernetes secret `jwt-secret` (`simple_jwt_api.yml`), which CodeBuild creates from the parameter-store value.
+- **buildspec.yml** - `env: parameter-store: JWT_SECRET: JWT_SECRET`; `pre_build` installs the requirements and runs `python -m pytest test_main.py`, so a failing test stops the deployment; kubectl v1.36.0 matches the EKS cluster (Kubernetes 1.36).
+- **ci-cd-codepipeline.cfn.yml** - defaults set: EKS cluster `simple-jwt-api`, repo `cd0157-Server-Deployment-and-Containerization`, branch `master`, GitHub user `sd3093`, kubectl role `UdacityFlaskDeployCBKubectlRole`; CodeBuild image `aws/codebuild/standard:7.0`; custom-resource Lambda on `python3.12`.
+- **test_main.py** - tests for `/`, `/auth`, `/contents` (valid, missing and invalid token).
+- **trust.json / aws-auth-patch.yml / iam-role-policy.json** - IAM role `UdacityFlaskDeployCBKubectlRole` for CodeBuild and its `system:masters` mapping in the cluster's `aws-auth` ConfigMap.
+
+### Run locally
+
+```bash
+pip install -r requirements.txt
+python -m pytest test_main.py
+
+cp .env_file.example .env_file
+docker build -t myimage .
+docker run --name myContainer --env-file=.env_file -p 80:8080 myimage
+
+curl http://localhost:80/
+export TOKEN=`curl -s -d '{"email":"abc@xyz.com","password":"WindowsPwd"}' -H "Content-Type: application/json" -X POST localhost:80/auth | jq -r '.token'`
+curl -s http://localhost:80/contents -H "Authorization: Bearer ${TOKEN}" | jq .
+```
+
+---
+
 This is the project starter repo for the course Server Deployment, Containerization, and Testing.
 
 In this project you will containerize and deploy a Flask API to a Kubernetes cluster using Docker, AWS EKS, CodePipeline, and CodeBuild.

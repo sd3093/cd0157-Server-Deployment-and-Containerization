@@ -38,3 +38,13 @@ spec:
             allowPrivilegeEscalation: false
           ports:
             - containerPort: 8080
+          env:
+            # JWT_SECRET comes from the AWS parameter store: CodeBuild reads it (buildspec.yml env)
+            # and stores it in the Kubernetes secret `jwt-secret` before applying this file.
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SECRET
+            - name: LOG_LEVEL
+              value: INFO
