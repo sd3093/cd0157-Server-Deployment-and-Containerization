@@ -1,6 +1,5 @@
-# Use the official `python:3.11` image from the Amazon ECR Public Gallery
-# (a mirror of the Docker Hub image, so there is no Docker Hub pull rate limit).
-FROM public.ecr.aws/docker/library/python:3.11
+# This historical course rubric explicitly requires the python:stretch image.
+FROM python:stretch
 
 # Set up an app directory for your code
 COPY . /app

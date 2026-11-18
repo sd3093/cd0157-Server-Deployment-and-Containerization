@@ -2,7 +2,7 @@
 
 ## Submission notes (what was done)
 
-- **Dockerfile** - `public.ecr.aws/docker/library/python:3.11` base image (ECR Public mirror of the official image, no Docker Hub rate limit), installs `requirements.txt`, entrypoint `["gunicorn", "-b", ":8080", "main:APP"]`.
+- **Dockerfile** - `python:stretch` base image as explicitly required by the course rubric, installs `requirements.txt`, entrypoint `["gunicorn", "-b", ":8080", "main:APP"]`. The image supplies Python 3.7.4. It is a historical, obsolete course dependency; use a maintained image for deployments outside this exercise. `.dockerignore` excludes local secrets, Git metadata, and caches from the image.
 - **JWT_SECRET in a file** - `.env_file.example` holds `JWT_SECRET` and `LOG_LEVEL` for running the container locally (copy it to `.env_file`, which stays git-ignored). In the cluster the pods get `JWT_SECRET` from the Kubernetes secret `jwt-secret` (`simple_jwt_api.yml`), which CodeBuild creates from the parameter-store value.
 - **buildspec.yml** - `env: parameter-store: JWT_SECRET: JWT_SECRET`; `pre_build` installs the requirements and runs `python -m pytest test_main.py`, so a failing test stops the deployment; kubectl v1.36.0 matches the EKS cluster (Kubernetes 1.36).
 - **ci-cd-codepipeline.cfn.yml** - defaults set: EKS cluster `simple-jwt-api`, repo `cd0157-Server-Deployment-and-Containerization`, branch `master`, GitHub user `sd3093`, kubectl role `UdacityFlaskDeployCBKubectlRole`; CodeBuild image `aws/codebuild/standard:7.0`; custom-resource Lambda on `python3.12`.
@@ -10,6 +10,32 @@
 - **trust.json / aws-auth-patch.yml / iam-role-policy.json** - IAM role `UdacityFlaskDeployCBKubectlRole` for CodeBuild and its `system:masters` mapping in the cluster's `aws-auth` ConfigMap.
 
 ### Run locally
+
+### November 18 resubmission verification
+
+The Docker base image now matches the exact rubric requirement. An actual
+`linux/amd64` build completed successfully on Docker Desktop. All five existing
+pytest checks passed inside that image. An additional HTTP probe verified `/`,
+`/auth`, and `/contents` through Gunicorn, including the expected `email`, `exp`,
+and `nbf` fields and HTTP 401 responses for missing/invalid tokens. The probe
+also verified that the JWT signature uses the secret supplied by an env file.
+See `verification/docker-build.log`, `verification/docker-pytest.log`, and
+`verification/docker-http.txt`.
+
+Reproduce the container checks from the repository root:
+
+```bash
+docker build --platform linux/amd64 -t udacity-flask-eks:resubmit-20261118 .
+docker run --rm --platform linux/amd64 --entrypoint python \
+  udacity-flask-eks:resubmit-20261118 -m pytest test_main.py -v
+python3 scripts/verify_container.py
+```
+
+The HTTP probe creates an ephemeral test secret, binds the container only to
+localhost on a free port, and removes its own test container afterward. These
+local results do not establish that the separate AWS EKS deployment is healthy.
+
+### Manual local usage
 
 ```bash
 pip install -r requirements.txt

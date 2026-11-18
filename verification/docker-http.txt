@@ -1,0 +1,5 @@
+GET /: HTTP 200, Healthy
+POST /auth: HTTP 200; JWT signature matches the secret supplied through the env file
+GET /contents: HTTP 200; expected email, valid exp/nbf, no password
+GET /contents with absent or invalid token: HTTP 401
+PASS: all three endpoints and env-file signing verified through Gunicorn in Docker
