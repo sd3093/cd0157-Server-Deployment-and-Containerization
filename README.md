@@ -35,6 +35,43 @@ The HTTP probe creates an ephemeral test secret, binds the container only to
 localhost on a free port, and removes its own test container afterward. These
 local results do not establish that the separate AWS EKS deployment is healthy.
 
+### Verified EKS deployment — November 18, 2026
+
+Public service URL:
+
+http://aaa3850c8b5874d358a619f5e95b137d-1697945521.us-east-2.elb.amazonaws.com/
+
+The existing `simple-jwt-api` cluster in `us-east-2` has one Ready worker and
+three Running application pods. CodeBuild build
+`simple-jwt-api-pipeline:cad0b1a0-86ef-4408-a015-75aaa646282f` succeeded for source
+commit `c6151ec01bf2e5a0bdb839179ce2f0c81dd3496f`, running five tests, building
+`python:stretch`, publishing the image, and completing the Kubernetes rollout.
+
+At 17:20 UTC on November 18, the public ELB returned HTTP 200 for all three
+endpoints: `/` returned `Healthy`; `/auth` issued a JWT; and `/contents` returned
+the expected email and valid `exp`/`nbf` fields. Missing and invalid JWTs returned
+HTTP 401. The JWT itself is omitted from saved evidence.
+
+- `verification/codebuild-success.jpg`: actual AWS build status and phases.
+- `verification/codebuild-log.txt`: actual tests, image build and successful rollout.
+- `verification/final-build-status.json`: AWS API build result and source commit.
+- `verification/final-kubernetes-status.txt`: Ready node, three Running pods and ELB hostname.
+- `verification/final-deployment.json`: three updated/ready replicas and deployed image tag.
+- `verification/live-endpoints.json`: timestamped HTTP statuses and responses from the public ELB.
+
+Recheck the deployed endpoints with:
+
+```bash
+python3 scripts/verify_live.py \
+  http://aaa3850c8b5874d358a619f5e95b137d-1697945521.us-east-2.elb.amazonaws.com
+```
+
+The previous worker had failed to bootstrap while the Udacity lab was inactive.
+Reactivating the lab and restarting that worker restored service without changing
+IAM or organization policy. The deployment is being left running for review.
+Udacity may suspend lab resources; the timestamped logs preserve the actual
+successful deployment and endpoint results if that happens.
+
 ### Manual local usage
 
 ```bash
