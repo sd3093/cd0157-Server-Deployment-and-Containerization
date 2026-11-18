@@ -1,0 +1,426 @@
+[Container] 2026/11/18 17:18:29.576834 Running on CodeBuild On-demand
+[Container] 2026/11/18 17:18:29.576846 Waiting for agent ping
+[Container] 2026/11/18 17:18:29.704824 Waiting for DOWNLOAD_SOURCE
+[Container] 2026/11/18 17:18:30.237770 Phase is DOWNLOAD_SOURCE
+[Container] 2026/11/18 17:18:30.238985 CODEBUILD_SRC_DIR=/codebuild/output/src3937511534/src
+[Container] 2026/11/18 17:18:30.239466 YAML location is /codebuild/output/src3937511534/src/buildspec.yml
+[Container] 2026/11/18 17:18:30.241450 Setting HTTP client timeout to higher timeout for S3 source
+[Container] 2026/11/18 17:18:30.241545 Processing environment variables
+[Container] 2026/11/18 17:18:30.245313 Decrypting parameter store environment variables
+[Container] 2026/11/18 17:18:30.483702 Selecting 'python' runtime version '3.11' based on manual selections...
+[Container] 2026/11/18 17:18:30.483838 Running command echo "Installing Python version 3.11 ..."
+Installing Python version 3.11 ...
+
+[Container] 2026/11/18 17:18:30.490106 Running command pyenv global $PYTHON_311_VERSION
+
+[Container] 2026/11/18 17:18:31.171549 Moving to directory /codebuild/output/src3937511534/src
+[Container] 2026/11/18 17:18:31.171574 Cache is not defined in the buildspec
+[Container] 2026/11/18 17:18:31.201479 Skip cache due to: no paths specified to be cached
+[Container] 2026/11/18 17:18:31.201841 Registering with agent
+[Container] 2026/11/18 17:18:31.226844 Phases found in YAML: 4
+[Container] 2026/11/18 17:18:31.226886  BUILD: 1 commands
+[Container] 2026/11/18 17:18:31.226903  POST_BUILD: 8 commands
+[Container] 2026/11/18 17:18:31.226932  INSTALL: 11 commands
+[Container] 2026/11/18 17:18:31.226934  PRE_BUILD: 7 commands
+[Container] 2026/11/18 17:18:31.227229 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2026/11/18 17:18:31.227237 Phase context status code:  Message: 
+[Container] 2026/11/18 17:18:31.311284 Entering phase INSTALL
+[Container] 2026/11/18 17:18:31.339851 Running command timeout 15 sh -c "until docker info > /dev/null; do echo .; sleep 1; done"
+[DEPRECATION NOTICE]: API is accessible on http://127.0.0.1:2375 without encryption.
+         Access to the remote API is equivalent to root access on the host. Refer
+         to the 'Docker daemon attack surface' section in the documentation for
+         more information: https://docs.docker.com/go/attack-surface/
+In future versions this will be a hard failure preventing the daemon from starting! Learn more at: https://docs.docker.com/go/api-security/
+WARNING: Support for cgroup v1 is deprecated and planned to be removed by no later than May 2029 (https://github.com/moby/moby/issues/51111)
+
+[Container] 2026/11/18 17:18:31.405010 Running command curl -sSLO https://dl.k8s.io/release/v1.36.0/bin/linux/amd64/kubectl
+
+[Container] 2026/11/18 17:18:33.139217 Running command curl -sSLO https://dl.k8s.io/release/v1.36.0/bin/linux/amd64/kubectl.sha256
+
+[Container] 2026/11/18 17:18:33.202288 Running command echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+kubectl: OK
+
+[Container] 2026/11/18 17:18:33.440200 Running command chmod +x ./kubectl
+
+[Container] 2026/11/18 17:18:33.447191 Running command export PATH=$PWD/:$PATH
+
+[Container] 2026/11/18 17:18:33.452845 Running command python --version
+Python 3.11.18
+
+[Container] 2026/11/18 17:18:34.159977 Running command echo 'export PATH=$PWD/:$PATH' >> $HOME/.bashrc
+
+[Container] 2026/11/18 17:18:34.224884 Running command kubectl version --client
+Client Version: v1.36.0
+Kustomize Version: v5.8.1
+
+[Container] 2026/11/18 17:18:34.264567 Running command aws --version
+aws-cli/2.39.3 Python/3.14.8 Linux/4.14.355-287.758.amzn2.x86_64 exec-env/AWS_ECS_EC2 exe/x86_64.ubuntu.22
+
+[Container] 2026/11/18 17:18:46.796464 Running command python -m pip install --upgrade pip
+Requirement already satisfied: pip in /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages (26.2.2)
+Collecting pip
+  Downloading pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Downloading pip-26.3-py3-none-any.whl (2.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 47.0 MB/s  0:00:00
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 26.2.2
+    Uninstalling pip-26.2.2:
+      Successfully uninstalled pip-26.2.2
+Successfully installed pip-26.3
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[Container] 2026/11/18 17:18:59.166518 Phase complete: INSTALL State: SUCCEEDED
+[Container] 2026/11/18 17:18:59.166538 Phase context status code:  Message: 
+[Container] 2026/11/18 17:18:59.203186 Entering phase PRE_BUILD
+[Container] 2026/11/18 17:18:59.204175 Running command pip install -r requirements.txt
+Collecting pyjwt==1.7.1 (from -r requirements.txt (line 1))
+  Downloading PyJWT-1.7.1-py2.py3-none-any.whl.metadata (3.9 kB)
+Collecting flask==1.1.2 (from -r requirements.txt (line 2))
+  Downloading Flask-1.1.2-py2.py3-none-any.whl.metadata (4.6 kB)
+Collecting Jinja2<3.0.0 (from -r requirements.txt (line 3))
+  Downloading Jinja2-2.11.3-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting MarkupSafe<2.0.0 (from -r requirements.txt (line 4))
+  Downloading MarkupSafe-1.1.1.tar.gz (19 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting ruamel.yaml==0.16.5 (from -r requirements.txt (line 5))
+  Downloading ruamel.yaml-0.16.5-py2.py3-none-any.whl.metadata (33 kB)
+Collecting itsdangerous==2.0.1 (from -r requirements.txt (line 6))
+  Downloading itsdangerous-2.0.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting werkzeug==2.0.3 (from -r requirements.txt (line 7))
+  Downloading Werkzeug-2.0.3-py3-none-any.whl.metadata (4.5 kB)
+Collecting gunicorn==20.0.4 (from -r requirements.txt (line 8))
+  Downloading gunicorn-20.0.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting pytest==7.4.4 (from -r requirements.txt (line 9))
+  Downloading pytest-7.4.4-py3-none-any.whl.metadata (7.9 kB)
+Collecting click>=5.1 (from flask==1.1.2->-r requirements.txt (line 2))
+  Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: setuptools>=3.0 in /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages (from gunicorn==20.0.4->-r requirements.txt (line 8)) (84.2.1)
+Collecting iniconfig (from pytest==7.4.4->-r requirements.txt (line 9))
+  Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Requirement already satisfied: packaging in /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages (from pytest==7.4.4->-r requirements.txt (line 9)) (26.3)
+Collecting pluggy<2.0,>=0.12 (from pytest==7.4.4->-r requirements.txt (line 9))
+  Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+Downloading PyJWT-1.7.1-py2.py3-none-any.whl (18 kB)
+Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+Downloading ruamel.yaml-0.16.5-py2.py3-none-any.whl (123 kB)
+Downloading itsdangerous-2.0.1-py3-none-any.whl (18 kB)
+Downloading Werkzeug-2.0.3-py3-none-any.whl (289 kB)
+Downloading gunicorn-20.0.4-py2.py3-none-any.whl (77 kB)
+Downloading pytest-7.4.4-py3-none-any.whl (325 kB)
+Downloading Jinja2-2.11.3-py2.py3-none-any.whl (125 kB)
+Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+Downloading click-8.5.1-py3-none-any.whl (126 kB)
+Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Building wheels for collected packages: MarkupSafe
+  Building wheel for MarkupSafe (pyproject.toml): started
+  Building wheel for MarkupSafe (pyproject.toml): finished with status 'done'
+  Created wheel for MarkupSafe: filename=markupsafe-1.1.1-cp311-cp311-linux_x86_64.whl size=31271 sha256=537cb2250bbade65386896ecf349840faeef809800584253f7f28987e2885d47
+  Stored in directory: /root/.cache/pip/wheels/42/2c/24/ee2a56da668805256e7c1b1d51ae9b177360788cabcdf5b9c1
+Successfully built MarkupSafe
+Installing collected packages: ruamel.yaml, pyjwt, werkzeug, pluggy, MarkupSafe, itsdangerous, iniconfig, gunicorn, click, pytest, Jinja2, flask
+
+Successfully installed Jinja2-2.11.3 MarkupSafe-1.1.1 click-8.5.1 flask-1.1.2 gunicorn-20.0.4 iniconfig-2.3.1 itsdangerous-2.0.1 pluggy-1.7.0 pyjwt-1.7.1 pytest-7.4.4 ruamel.yaml-0.16.5 werkzeug-2.0.3
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[Container] 2026/11/18 17:19:06.101200 Running command python -m pytest test_main.py
+============================= test session starts ==============================
+platform linux -- Python 3.11.18, pytest-7.4.4, pluggy-1.7.0
+rootdir: /codebuild/output/src3937511534/src
+plugins: platformdirs-4.14.3
+collected 5 items
+
+test_main.py .....                                                       [100%]
+
+=============================== warnings summary ===============================
+../../../../root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/json/__init__.py:31
+  /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/json/__init__.py:31: DeprecationWarning: Importing 'itsdangerous.json' is deprecated and will be removed in ItsDangerous 2.1. Use Python's 'json' module instead.
+    _slash_escape = "\\/" not in _json.dumps("/")
+
+../../../../root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/json/__init__.py:61
+  /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/json/__init__.py:61: DeprecationWarning: Importing 'itsdangerous.json' is deprecated and will be removed in ItsDangerous 2.1. Use Python's 'json' module instead.
+    class JSONEncoder(_json.JSONEncoder):
+
+../../../../root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/json/__init__.py:103
+  /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/json/__init__.py:103: DeprecationWarning: Importing 'itsdangerous.json' is deprecated and will be removed in ItsDangerous 2.1. Use Python's 'json' module instead.
+    class JSONDecoder(_json.JSONDecoder):
+
+test_main.py::test_health
+test_main.py::test_auth
+test_main.py::test_contents
+test_main.py::test_contents
+  /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/json/__init__.py:211: DeprecationWarning: Importing 'itsdangerous.json' is deprecated and will be removed in ItsDangerous 2.1. Use Python's 'json' module instead.
+    rv = _json.dumps(obj, **kwargs)
+
+test_main.py::test_contents_without_token
+test_main.py::test_contents_with_bad_token
+  /root/.pyenv/versions/3.11.18/lib/python3.11/site-packages/flask/app.py:2113: DeprecationWarning: 'BaseResponse' is deprecated and will be removed in Werkzeug 2.1. Use 'isinstance(obj, Response)' instead.
+    elif isinstance(rv, BaseResponse) or callable(rv):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 5 passed, 9 warnings in 0.12s =========================
+
+[Container] 2026/11/18 17:19:06.665876 Running command TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+
+[Container] 2026/11/18 17:19:06.709098 Running command sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' simple_jwt_api.yml
+
+[Container] 2026/11/18 17:19:06.716025 Running command aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${REPOSITORY_URI%%/*}
+
+WARNING! Your credentials are stored unencrypted in '/root/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+
+[Container] 2026/11/18 17:19:07.721023 Running command export KUBECONFIG=$HOME/.kube/config
+
+[Container] 2026/11/18 17:19:07.726747 Running command echo `ls -l`
+total 58180 -rw-rw-r-- 1 root root 42 Nov 18 17:17 CODEOWNERS -rw-rw-r-- 1 root root 433 Nov 18 17:17 Dockerfile -rwxrwxr-x 1 root root 7480 Nov 18 17:17 README.md drwxr-xr-x 2 root root 80 Nov 18 17:19 __pycache__ -rw-rw-r-- 1 root root 970 Nov 18 17:17 aws-auth-patch.yml -rw-rw-r-- 1 root root 2599 Nov 18 17:17 buildspec.yml -rwxrwxr-x 1 root root 12051 Nov 18 17:17 ci-cd-codepipeline.cfn.yml -rw-rw-r-- 1 root root 2090 Nov 18 17:17 eks-lab-setup.sh drwxr-xr-x 7 root root 101 Nov 18 17:18 examples -rw-rw-r-- 1 root root 167 Nov 18 17:17 iam-role-policy.json -rwxr-xr-x 1 root root 59502754 Nov 18 17:18 kubectl -rw-r--r-- 1 root root 64 Nov 18 17:18 kubectl.sha256 -rwxrwxr-x 1 root root 3016 Nov 18 17:17 main.py -rwxrwxr-x 1 root root 142 Nov 18 17:17 requirements.txt drwxr-xr-x 2 root root 33 Nov 18 17:18 scripts -rw-rw-r-- 1 root root 1359 Nov 18 17:19 simple_jwt_api.yml -rw-rw-r-- 1 root root 1703 Nov 18 17:17 test_main.py -rw-rw-r-- 1 root root 246 Nov 18 17:17 trust.json drwxr-xr-x 2 root root 78 Nov 18 17:18 verification
+
+[Container] 2026/11/18 17:19:07.767257 Phase complete: PRE_BUILD State: SUCCEEDED
+[Container] 2026/11/18 17:19:07.767274 Phase context status code:  Message: 
+[Container] 2026/11/18 17:19:07.798657 Entering phase BUILD
+[Container] 2026/11/18 17:19:07.799355 Running command docker build --tag $REPOSITORY_URI:$TAG .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 472B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:stretch
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 100B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 59.57MB 0.9s done
+#4 DONE 0.9s
+
+#5 [1/5] FROM docker.io/library/python:stretch@sha256:1b82f268fce299d627c23a6205cadc66dc60f46ea091e618e1ee68d9aa29b356
+#5 resolve docker.io/library/python:stretch@sha256:1b82f268fce299d627c23a6205cadc66dc60f46ea091e618e1ee68d9aa29b356 0.0s done
+#5 sha256:2f1eb47fe9222f760ae00b890b6033e5eff899789471337727f3b3c234081507 2.22kB / 2.22kB done
+#5 sha256:092586df92068bd6b59c497f379e48302aa1b27cf76b2de64d262ba7bc19e47b 45.38MB / 45.38MB 0.3s done
+#5 sha256:4530c6472b5d2a08201c9cd65f43a788e526eb4fe498a4fbe5e4d5688535cd21 4.34MB / 4.34MB 0.1s done
+#5 sha256:b9d77e48a75ca4a093b914627621429e9178dc6bc30abf0e4a46d093e311ef8d 8.91kB / 8.91kB done
+#5 sha256:ef599477fae0e7485cae7d038240cda6358b3af22c7eb4ea502c60771b68dcae 10.79MB / 10.79MB 0.2s done
+#5 sha256:1b82f268fce299d627c23a6205cadc66dc60f46ea091e618e1ee68d9aa29b356 1.65kB / 1.65kB done
+#5 sha256:d34d61487075d127bf6dd2906ea3abc50e0a3cd9aa2f230fc41b253b153a17ee 50.07MB / 50.07MB 0.5s done
+#5 sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93 145.75MB / 214.83MB 0.9s
+#5 sha256:f142141aaad378d9e48127844cbc17eaf6262124f8d36e93e8162b79f10a2efb 5.83MB / 5.83MB 0.4s done
+#5 extracting sha256:092586df92068bd6b59c497f379e48302aa1b27cf76b2de64d262ba7bc19e47b 0.6s
+#5 sha256:12eb19f5f2be687b4fcd3edd75a9a6f38bbd9299de273b95fabe8c2fba714b39 24.38MB / 24.38MB 0.6s done
+#5 sha256:d34466b69a2a95fe2b3c9742bd8da6d65709114b2f1b7f48615ec2d2c978c3fd 241B / 241B 0.6s done
+#5 sha256:fd8a0746ef8391d3f0cd4bbb82deafcccc221a5929afc115ebaa52b190d45794 1.86MB / 1.86MB 0.6s done
+#5 sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93 175.11MB / 214.83MB 1.0s
+#5 sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93 200.28MB / 214.83MB 1.1s
+#5 sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93 214.83MB / 214.83MB 1.4s
+#5 sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93 214.83MB / 214.83MB 1.5s done
+#5 extracting sha256:092586df92068bd6b59c497f379e48302aa1b27cf76b2de64d262ba7bc19e47b 1.9s done
+#5 extracting sha256:ef599477fae0e7485cae7d038240cda6358b3af22c7eb4ea502c60771b68dcae 0.1s
+#5 extracting sha256:ef599477fae0e7485cae7d038240cda6358b3af22c7eb4ea502c60771b68dcae 0.3s done
+#5 extracting sha256:4530c6472b5d2a08201c9cd65f43a788e526eb4fe498a4fbe5e4d5688535cd21 0.1s done
+#5 extracting sha256:d34d61487075d127bf6dd2906ea3abc50e0a3cd9aa2f230fc41b253b153a17ee 0.1s
+#5 extracting sha256:d34d61487075d127bf6dd2906ea3abc50e0a3cd9aa2f230fc41b253b153a17ee 1.6s done
+#5 extracting sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93
+#5 extracting sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93 5.1s
+#5 extracting sha256:87fc2710b63fcf6c0a5c876b1b37773d9e949cb4d66eeb06889ef84f7b5a5a93 5.6s done
+#5 extracting sha256:f142141aaad378d9e48127844cbc17eaf6262124f8d36e93e8162b79f10a2efb
+#5 extracting sha256:f142141aaad378d9e48127844cbc17eaf6262124f8d36e93e8162b79f10a2efb 0.2s done
+#5 extracting sha256:12eb19f5f2be687b4fcd3edd75a9a6f38bbd9299de273b95fabe8c2fba714b39
+#5 extracting sha256:12eb19f5f2be687b4fcd3edd75a9a6f38bbd9299de273b95fabe8c2fba714b39 0.6s done
+#5 extracting sha256:d34466b69a2a95fe2b3c9742bd8da6d65709114b2f1b7f48615ec2d2c978c3fd done
+#5 extracting sha256:fd8a0746ef8391d3f0cd4bbb82deafcccc221a5929afc115ebaa52b190d45794
+#5 extracting sha256:fd8a0746ef8391d3f0cd4bbb82deafcccc221a5929afc115ebaa52b190d45794 0.1s done
+#5 DONE 11.4s
+
+#6 [2/5] COPY . /app
+#6 DONE 0.9s
+
+#7 [3/5] WORKDIR /app
+#7 DONE 0.0s
+
+#8 [4/5] RUN pip install --upgrade pip
+#8 1.208 Collecting pip
+#8 1.333   Downloading https://files.pythonhosted.org/packages/8a/6a/19e9fe04fca059ccf770861c7d5721ab4c2aebc539889e97c7977528a53b/pip-24.0-py3-none-any.whl (2.1MB)
+#8 1.473 Installing collected packages: pip
+#8 1.474   Found existing installation: pip 19.2.3
+#8 1.532     Uninstalling pip-19.2.3:
+#8 1.597       Successfully uninstalled pip-19.2.3
+#8 2.364 Successfully installed pip-24.0
+#8 DONE 2.7s
+
+#9 [5/5] RUN pip install -r requirements.txt
+#9 0.731 Collecting pyjwt==1.7.1 (from -r requirements.txt (line 1))
+#9 0.783   Downloading PyJWT-1.7.1-py2.py3-none-any.whl.metadata (3.9 kB)
+#9 0.814 Collecting flask==1.1.2 (from -r requirements.txt (line 2))
+#9 0.827   Downloading Flask-1.1.2-py2.py3-none-any.whl.metadata (4.6 kB)
+#9 0.856 Collecting Jinja2<3.0.0 (from -r requirements.txt (line 3))
+#9 0.869   Downloading Jinja2-2.11.3-py2.py3-none-any.whl.metadata (3.5 kB)
+#9 0.946 Collecting MarkupSafe<2.0.0 (from -r requirements.txt (line 4))
+#9 0.959   Downloading MarkupSafe-1.1.1-cp37-cp37m-manylinux2010_x86_64.whl.metadata (3.2 kB)
+#9 1.126 Collecting ruamel.yaml==0.16.5 (from -r requirements.txt (line 5))
+#9 1.140   Downloading ruamel.yaml-0.16.5-py2.py3-none-any.whl.metadata (33 kB)
+#9 1.166 Collecting itsdangerous==2.0.1 (from -r requirements.txt (line 6))
+#9 1.179   Downloading itsdangerous-2.0.1-py3-none-any.whl.metadata (2.9 kB)
+#9 1.221 Collecting werkzeug==2.0.3 (from -r requirements.txt (line 7))
+#9 1.235   Downloading Werkzeug-2.0.3-py3-none-any.whl.metadata (4.5 kB)
+#9 1.268 Collecting gunicorn==20.0.4 (from -r requirements.txt (line 8))
+#9 1.281   Downloading gunicorn-20.0.4-py2.py3-none-any.whl.metadata (3.5 kB)
+#9 1.351 Collecting pytest==7.4.4 (from -r requirements.txt (line 9))
+#9 1.364   Downloading pytest-7.4.4-py3-none-any.whl.metadata (7.9 kB)
+#9 1.427 Collecting click>=5.1 (from flask==1.1.2->-r requirements.txt (line 2))
+#9 1.440   Downloading click-8.1.8-py3-none-any.whl.metadata (2.3 kB)
+#9 1.498 Collecting ruamel.yaml.clib>=0.1.2 (from ruamel.yaml==0.16.5->-r requirements.txt (line 5))
+#9 1.513   Downloading ruamel.yaml.clib-0.2.8-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl.metadata (2.2 kB)
+#9 1.557 Requirement already satisfied: setuptools>=3.0 in /usr/local/lib/python3.7/site-packages (from gunicorn==20.0.4->-r requirements.txt (line 8)) (41.2.0)
+#9 1.585 Collecting iniconfig (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.598   Downloading iniconfig-2.0.0-py3-none-any.whl.metadata (2.6 kB)
+#9 1.631 Collecting packaging (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.645   Downloading packaging-24.0-py3-none-any.whl.metadata (3.2 kB)
+#9 1.672 Collecting pluggy<2.0,>=0.12 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.685   Downloading pluggy-1.2.0-py3-none-any.whl.metadata (4.4 kB)
+#9 1.711 Collecting exceptiongroup>=1.0.0rc8 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.724   Downloading exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)
+#9 1.769 Collecting tomli>=1.0.0 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.782   Downloading tomli-2.0.1-py3-none-any.whl.metadata (8.9 kB)
+#9 1.849 Collecting importlib-metadata>=0.12 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.862   Downloading importlib_metadata-6.7.0-py3-none-any.whl.metadata (4.9 kB)
+#9 1.912 Collecting typing-extensions>=4.6.0 (from exceptiongroup>=1.0.0rc8->pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.925   Downloading typing_extensions-4.7.1-py3-none-any.whl.metadata (3.1 kB)
+#9 1.981 Collecting zipp>=0.5 (from importlib-metadata>=0.12->pytest==7.4.4->-r requirements.txt (line 9))
+#9 1.994   Downloading zipp-3.15.0-py3-none-any.whl.metadata (3.7 kB)
+#9 2.066 Downloading PyJWT-1.7.1-py2.py3-none-any.whl (18 kB)
+#9 2.084 Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+#9 2.102    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.6/94.6 kB 5.4 MB/s eta 0:00:00
+#9 2.116 Downloading ruamel.yaml-0.16.5-py2.py3-none-any.whl (123 kB)
+#9 2.126    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 123.3/123.3 kB 16.3 MB/s eta 0:00:00
+#9 2.140 Downloading itsdangerous-2.0.1-py3-none-any.whl (18 kB)
+#9 2.158 Downloading Werkzeug-2.0.3-py3-none-any.whl (289 kB)
+#9 2.175    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 289.2/289.2 kB 18.8 MB/s eta 0:00:00
+#9 2.189 Downloading gunicorn-20.0.4-py2.py3-none-any.whl (77 kB)
+#9 2.197    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 77.9/77.9 kB 12.2 MB/s eta 0:00:00
+#9 2.211 Downloading pytest-7.4.4-py3-none-any.whl (325 kB)
+#9 2.222    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.3/325.3 kB 37.1 MB/s eta 0:00:00
+#9 2.236 Downloading Jinja2-2.11.3-py2.py3-none-any.whl (125 kB)
+#9 2.244    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.7/125.7 kB 18.7 MB/s eta 0:00:00
+#9 2.259 Downloading MarkupSafe-1.1.1-cp37-cp37m-manylinux2010_x86_64.whl (33 kB)
+#9 2.277 Downloading click-8.1.8-py3-none-any.whl (98 kB)
+#9 2.285    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.2/98.2 kB 14.8 MB/s eta 0:00:00
+#9 2.299 Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+#9 2.317 Downloading importlib_metadata-6.7.0-py3-none-any.whl (22 kB)
+#9 2.335 Downloading pluggy-1.2.0-py3-none-any.whl (17 kB)
+#9 2.354 Downloading ruamel.yaml.clib-0.2.8-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl (551 kB)
+#9 2.366    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 551.1/551.1 kB 60.0 MB/s eta 0:00:00
+#9 2.379 Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+#9 2.398 Downloading iniconfig-2.0.0-py3-none-any.whl (5.9 kB)
+#9 2.416 Downloading packaging-24.0-py3-none-any.whl (53 kB)
+#9 2.424    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.5/53.5 kB 7.7 MB/s eta 0:00:00
+#9 2.437 Downloading typing_extensions-4.7.1-py3-none-any.whl (33 kB)
+#9 2.455 Downloading zipp-3.15.0-py3-none-any.whl (6.8 kB)
+#9 2.564 Installing collected packages: pyjwt, zipp, werkzeug, typing-extensions, tomli, ruamel.yaml.clib, packaging, MarkupSafe, itsdangerous, iniconfig, gunicorn, ruamel.yaml, Jinja2, importlib-metadata, exceptiongroup, pluggy, click, pytest, flask
+#9 3.240 Successfully installed Jinja2-2.11.3 MarkupSafe-1.1.1 click-8.1.8 exceptiongroup-1.3.1 flask-1.1.2 gunicorn-20.0.4 importlib-metadata-6.7.0 iniconfig-2.0.0 itsdangerous-2.0.1 packaging-24.0 pluggy-1.2.0 pyjwt-1.7.1 pytest-7.4.4 ruamel.yaml-0.16.5 ruamel.yaml.clib-0.2.8 tomli-2.0.1 typing-extensions-4.7.1 werkzeug-2.0.3 zipp-3.15.0
+#9 3.241 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#9 DONE 3.6s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.2s done
+#10 writing image sha256:008c61ce9d49dab2edc0fe6f2226eba18edb0e12422d4c583a8e2e720f645125 done
+#10 naming to 760216051599.dkr.ecr.us-east-2.amazonaws.com/simple-jwt-api-pipeline-ecrdockerrepository-35dmiw9bakgi:cd0157-Server-Deployment-and-Containerization.master.2026-11-18.17.19.06.c6151ec0 done
+#10 DONE 0.3s
+
+[Container] 2026/11/18 17:19:27.412187 Phase complete: BUILD State: SUCCEEDED
+[Container] 2026/11/18 17:19:27.412209 Phase context status code:  Message: 
+[Container] 2026/11/18 17:19:27.444102 Entering phase POST_BUILD
+[Container] 2026/11/18 17:19:27.445134 Running command docker push $REPOSITORY_URI:$TAG
+The push refers to repository [760216051599.dkr.ecr.us-east-2.amazonaws.com/simple-jwt-api-pipeline-ecrdockerrepository-35dmiw9bakgi]
+4ff432098804: Preparing
+3181d7e24430: Preparing
+5f70bf18a086: Preparing
+f1e89f983a1e: Preparing
+611ec0189160: Preparing
+f6c506432da1: Preparing
+f81368f5f171: Preparing
+2cadd3d84047: Preparing
+409170aec809: Preparing
+2e669e0134f5: Preparing
+8bacec4e3446: Preparing
+26b1991f37bd: Preparing
+55e6b89812f3: Preparing
+2cadd3d84047: Waiting
+409170aec809: Waiting
+2e669e0134f5: Waiting
+8bacec4e3446: Waiting
+26b1991f37bd: Waiting
+55e6b89812f3: Waiting
+f6c506432da1: Waiting
+f81368f5f171: Waiting
+5f70bf18a086: Pushed
+f6c506432da1: Pushed
+611ec0189160: Pushed
+f1e89f983a1e: Pushed
+4ff432098804: Pushed
+3181d7e24430: Pushed
+2cadd3d84047: Pushed
+8bacec4e3446: Pushed
+26b1991f37bd: Pushed
+f81368f5f171: Pushed
+55e6b89812f3: Pushed
+2e669e0134f5: Pushed
+409170aec809: Pushed
+cd0157-Server-Deployment-and-Containerization.master.2026-11-18.17.19.06.c6151ec0: digest: sha256:eedb805c430a074d6ba85c26d56589d9456ec98f6b00fc7979ac18d856d7bb04 size: 3058
+
+[Container] 2026/11/18 17:19:57.579236 Running command echo $EKS_CLUSTER_NAME
+simple-jwt-api
+
+[Container] 2026/11/18 17:19:57.584948 Running command echo $EKS_KUBECTL_ROLE_ARN
+arn:aws:iam::760216051599:role/UdacityFlaskDeployCBKubectlRole
+
+[Container] 2026/11/18 17:19:57.590472 Running command aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --role-arn $EKS_KUBECTL_ROLE_ARN
+Added new context arn:aws:eks:us-east-2:760216051599:cluster/simple-jwt-api to /root/.kube/config
+
+[Container] 2026/11/18 17:19:58.437698 Running command kubectl create secret generic jwt-secret --from-literal=JWT_SECRET="$JWT_SECRET" --dry-run=client -o yaml | kubectl apply -f -
+secret/jwt-secret unchanged
+
+[Container] 2026/11/18 17:20:03.337261 Running command kubectl apply -f simple_jwt_api.yml
+service/simple-jwt-api unchanged
+deployment.apps/simple-jwt-api configured
+
+[Container] 2026/11/18 17:20:04.307583 Running command kubectl rollout status deployment/simple-jwt-api --timeout=300s
+Waiting for deployment "simple-jwt-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "simple-jwt-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "simple-jwt-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "simple-jwt-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "simple-jwt-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "simple-jwt-api" rollout to finish: 2 of 3 updated replicas are available...
+deployment "simple-jwt-api" successfully rolled out
+
+[Container] 2026/11/18 17:20:19.630050 Running command printf '[{"name":"simple_jwt_api","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > build.json
+
+[Container] 2026/11/18 17:20:19.636198 Phase complete: POST_BUILD State: SUCCEEDED
+[Container] 2026/11/18 17:20:19.636211 Phase context status code:  Message: 
+[Container] 2026/11/18 17:20:19.722102 Expanding base directory path: .
+[Container] 2026/11/18 17:20:19.723942 Assembling file list
+[Container] 2026/11/18 17:20:19.723954 Expanding .
+[Container] 2026/11/18 17:20:19.725537 Expanding file paths for base directory .
+[Container] 2026/11/18 17:20:19.725547 Assembling file list
+[Container] 2026/11/18 17:20:19.725586 Expanding build.json
+[Container] 2026/11/18 17:20:19.727052 Found 1 file(s)
+[Container] 2026/11/18 17:20:19.728254 Set report auto-discover timeout to 5 seconds
+[Container] 2026/11/18 17:20:19.728345 Expanding base directory path:  .
+[Container] 2026/11/18 17:20:19.729724 Assembling file list
+[Container] 2026/11/18 17:20:19.729733 Expanding .
+[Container] 2026/11/18 17:20:19.731135 Expanding file paths for base directory .
+[Container] 2026/11/18 17:20:19.731143 Assembling file list
+[Container] 2026/11/18 17:20:19.731145 Expanding **/*
+[Container] 2026/11/18 17:20:19.732895 No matching auto-discover report paths found
+[Container] 2026/11/18 17:20:19.732975 Report auto-discover file discovery took 0.004721 seconds
+[Container] 2026/11/18 17:20:19.732988 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+[Container] 2026/11/18 17:20:19.733005 Phase context status code:  Message: 

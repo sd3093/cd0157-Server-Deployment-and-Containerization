@@ -1,0 +1,55 @@
+[
+    {
+        "id": "simple-jwt-api-pipeline:cad0b1a0-86ef-4408-a015-75aaa646282f",
+        "status": "SUCCEEDED",
+        "source": "c6151ec01bf2e5a0bdb839179ce2f0c81dd3496f",
+        "start": "2026-11-18T12:18:22.613000-05:00",
+        "end": "2026-11-18T12:20:20.137000-05:00",
+        "phases": [
+            {
+                "type": "SUBMITTED",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "QUEUED",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "PROVISIONING",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "DOWNLOAD_SOURCE",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "INSTALL",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "PRE_BUILD",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "BUILD",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "POST_BUILD",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "UPLOAD_ARTIFACTS",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "FINALIZING",
+                "status": "SUCCEEDED"
+            },
+            {
+                "type": "COMPLETED",
+                "status": null
+            }
+        ]
+    }
+]

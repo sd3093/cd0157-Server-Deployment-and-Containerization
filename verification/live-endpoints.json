@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-11-18T17:20:50.406280+00:00",
+  "base_url": "http://aaa3850c8b5874d358a619f5e95b137d-1697945521.us-east-2.elb.amazonaws.com",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/",
+      "status": 200,
+      "response": "Healthy"
+    },
+    {
+      "method": "POST",
+      "path": "/auth",
+      "status": 200,
+      "response": {
+        "token": "[omitted: JWT verified via /contents]"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/contents",
+      "status": 200,
+      "response": {
+        "email": "review@example.com",
+        "exp": 1796232050,
+        "nbf": 1795022450
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/contents",
+      "case": "missing token",
+      "status": 401
+    },
+    {
+      "method": "GET",
+      "path": "/contents",
+      "case": "invalid token",
+      "status": 401
+    }
+  ],
+  "result": "PASS"
+}

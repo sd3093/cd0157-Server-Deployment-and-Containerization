@@ -1,0 +1,109 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/revision": "3",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"simple-jwt-api\",\"namespace\":\"default\"},\"spec\":{\"replicas\":3,\"selector\":{\"matchLabels\":{\"app\":\"simple-jwt-api\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":2,\"maxUnavailable\":2},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"simple-jwt-api\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"JWT_SECRET\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"JWT_SECRET\",\"name\":\"jwt-secret\"}}},{\"name\":\"LOG_LEVEL\",\"value\":\"INFO\"}],\"image\":\"760216051599.dkr.ecr.us-east-2.amazonaws.com/simple-jwt-api-pipeline-ecrdockerrepository-35dmiw9bakgi:cd0157-Server-Deployment-and-Containerization.master.2026-11-18.17.19.06.c6151ec0\",\"name\":\"simple-jwt-api\",\"ports\":[{\"containerPort\":8080}],\"securityContext\":{\"allowPrivilegeEscalation\":false,\"privileged\":false,\"readOnlyRootFilesystem\":false}}]}}}}\n"
+        },
+        "creationTimestamp": "2026-11-17T18:54:14Z",
+        "generation": 3,
+        "name": "simple-jwt-api",
+        "namespace": "default",
+        "resourceVersion": "228100",
+        "uid": "1b313a4b-a00b-466f-97eb-32014615eaf3"
+    },
+    "spec": {
+        "progressDeadlineSeconds": 600,
+        "replicas": 3,
+        "revisionHistoryLimit": 10,
+        "selector": {
+            "matchLabels": {
+                "app": "simple-jwt-api"
+            }
+        },
+        "strategy": {
+            "rollingUpdate": {
+                "maxSurge": 2,
+                "maxUnavailable": 2
+            },
+            "type": "RollingUpdate"
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "simple-jwt-api"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "JWT_SECRET",
+                                "valueFrom": {
+                                    "secretKeyRef": {
+                                        "key": "JWT_SECRET",
+                                        "name": "jwt-secret"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "INFO"
+                            }
+                        ],
+                        "image": "760216051599.dkr.ecr.us-east-2.amazonaws.com/simple-jwt-api-pipeline-ecrdockerrepository-35dmiw9bakgi:cd0157-Server-Deployment-and-Containerization.master.2026-11-18.17.19.06.c6151ec0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "simple-jwt-api",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "privileged": false,
+                            "readOnlyRootFilesystem": false
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File"
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 3,
+        "conditions": [
+            {
+                "lastTransitionTime": "2026-11-18T17:16:34Z",
+                "lastUpdateTime": "2026-11-18T17:16:34Z",
+                "message": "Deployment has minimum availability.",
+                "reason": "MinimumReplicasAvailable",
+                "status": "True",
+                "type": "Available"
+            },
+            {
+                "lastTransitionTime": "2026-11-17T18:54:14Z",
+                "lastUpdateTime": "2026-11-18T17:20:19Z",
+                "message": "ReplicaSet \"simple-jwt-api-84889dc59f\" has successfully progressed.",
+                "reason": "NewReplicaSetAvailable",
+                "status": "True",
+                "type": "Progressing"
+            }
+        ],
+        "observedGeneration": 3,
+        "readyReplicas": 3,
+        "replicas": 3,
+        "terminatingReplicas": 0,
+        "updatedReplicas": 3
+    }
+}

@@ -1,0 +1,11 @@
+NAME                                                STATUS   ROLES    AGE     VERSION               INTERNAL-IP      EXTERNAL-IP      OS-IMAGE                        KERNEL-VERSION                            CONTAINER-RUNTIME
+node/ip-192-168-40-135.us-east-2.compute.internal   Ready    <none>   4m47s   v1.36.5-eks-9adbfea   192.168.40.135   18.117.223.168   Amazon Linux 2023.12.20261112   6.18.62-127.179.amzn2023.x86_64 (amd64)   containerd://2.3.7+unknown
+
+NAME                                  READY   STATUS    RESTARTS   AGE   IP               NODE                                           NOMINATED NODE   READINESS GATES
+pod/simple-jwt-api-84889dc59f-9stsk   1/1     Running   0          46s   192.168.46.143   ip-192-168-40-135.us-east-2.compute.internal   <none>           <none>
+pod/simple-jwt-api-84889dc59f-bhhn8   1/1     Running   0          46s   192.168.49.124   ip-192-168-40-135.us-east-2.compute.internal   <none>           <none>
+pod/simple-jwt-api-84889dc59f-pmthb   1/1     Running   0          46s   192.168.57.223   ip-192-168-40-135.us-east-2.compute.internal   <none>           <none>
+
+NAME                     TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)        AGE   SELECTOR
+service/kubernetes       ClusterIP      10.100.0.1      <none>                                                                    443/TCP        22h   <none>
+service/simple-jwt-api   LoadBalancer   10.100.56.188   aaa3850c8b5874d358a619f5e95b137d-1697945521.us-east-2.elb.amazonaws.com   80:31912/TCP   22h   app=simple-jwt-api
