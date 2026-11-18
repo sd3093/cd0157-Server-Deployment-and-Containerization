@@ -66,8 +66,8 @@ python3 scripts/verify_live.py \
   http://aaa3850c8b5874d358a619f5e95b137d-1697945521.us-east-2.elb.amazonaws.com
 ```
 
-The previous worker had failed to bootstrap while the Udacity lab was inactive.
-Reactivating the lab and restarting that worker restored service without changing
+The previous worker boot log recorded an organization-policy denial during
+bootstrap. Reactivating the lab and restarting that worker restored service without changing
 IAM or organization policy. The deployment is being left running for review.
 Udacity may suspend lab resources; the timestamped logs preserve the actual
 successful deployment and endpoint results if that happens.
