@@ -1,0 +1,121 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 472B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:stretch
+#2 DONE 0.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 100B 0.1s done
+#3 DONE 0.1s
+
+#4 [internal] load build context
+#4 transferring context: 7.92kB done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/library/python:stretch@sha256:1b82f268fce299d627c23a6205cadc66dc60f46ea091e618e1ee68d9aa29b356
+#5 resolve docker.io/library/python:stretch@sha256:1b82f268fce299d627c23a6205cadc66dc60f46ea091e618e1ee68d9aa29b356 0.0s done
+#5 CACHED
+
+#6 [2/5] COPY . /app
+#6 DONE 0.0s
+
+#7 [3/5] WORKDIR /app
+#7 DONE 0.0s
+
+#8 [4/5] RUN pip install --upgrade pip
+#8 1.352 Collecting pip
+#8 1.679   Downloading https://files.pythonhosted.org/packages/8a/6a/19e9fe04fca059ccf770861c7d5721ab4c2aebc539889e97c7977528a53b/pip-24.0-py3-none-any.whl (2.1MB)
+#8 2.186 Installing collected packages: pip
+#8 2.186   Found existing installation: pip 19.2.3
+#8 2.254     Uninstalling pip-19.2.3:
+#8 2.517       Successfully uninstalled pip-19.2.3
+#8 3.209 Successfully installed pip-24.0
+#8 DONE 3.5s
+
+#9 [5/5] RUN pip install -r requirements.txt
+#9 0.854 Collecting pyjwt==1.7.1 (from -r requirements.txt (line 1))
+#9 1.021   Downloading PyJWT-1.7.1-py2.py3-none-any.whl.metadata (3.9 kB)
+#9 1.104 Collecting flask==1.1.2 (from -r requirements.txt (line 2))
+#9 1.148   Downloading Flask-1.1.2-py2.py3-none-any.whl.metadata (4.6 kB)
+#9 1.221 Collecting Jinja2<3.0.0 (from -r requirements.txt (line 3))
+#9 1.256   Downloading Jinja2-2.11.3-py2.py3-none-any.whl.metadata (3.5 kB)
+#9 1.427 Collecting MarkupSafe<2.0.0 (from -r requirements.txt (line 4))
+#9 1.463   Downloading MarkupSafe-1.1.1-cp37-cp37m-manylinux2010_x86_64.whl.metadata (3.2 kB)
+#9 1.701 Collecting ruamel.yaml==0.16.5 (from -r requirements.txt (line 5))
+#9 1.890   Downloading ruamel.yaml-0.16.5-py2.py3-none-any.whl.metadata (33 kB)
+#9 1.960 Collecting itsdangerous==2.0.1 (from -r requirements.txt (line 6))
+#9 1.994   Downloading itsdangerous-2.0.1-py3-none-any.whl.metadata (2.9 kB)
+#9 2.073 Collecting werkzeug==2.0.3 (from -r requirements.txt (line 7))
+#9 2.104   Downloading Werkzeug-2.0.3-py3-none-any.whl.metadata (4.5 kB)
+#9 2.177 Collecting gunicorn==20.0.4 (from -r requirements.txt (line 8))
+#9 2.215   Downloading gunicorn-20.0.4-py2.py3-none-any.whl.metadata (3.5 kB)
+#9 2.319 Collecting pytest==7.4.4 (from -r requirements.txt (line 9))
+#9 2.358   Downloading pytest-7.4.4-py3-none-any.whl.metadata (7.9 kB)
+#9 2.448 Collecting click>=5.1 (from flask==1.1.2->-r requirements.txt (line 2))
+#9 2.486   Downloading click-8.1.8-py3-none-any.whl.metadata (2.3 kB)
+#9 2.586 Collecting ruamel.yaml.clib>=0.1.2 (from ruamel.yaml==0.16.5->-r requirements.txt (line 5))
+#9 2.620   Downloading ruamel.yaml.clib-0.2.8-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl.metadata (2.2 kB)
+#9 2.645 Requirement already satisfied: setuptools>=3.0 in /usr/local/lib/python3.7/site-packages (from gunicorn==20.0.4->-r requirements.txt (line 8)) (41.2.0)
+#9 2.700 Collecting iniconfig (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 2.732   Downloading iniconfig-2.0.0-py3-none-any.whl.metadata (2.6 kB)
+#9 2.796 Collecting packaging (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 2.831   Downloading packaging-24.0-py3-none-any.whl.metadata (3.2 kB)
+#9 2.893 Collecting pluggy<2.0,>=0.12 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 2.930   Downloading pluggy-1.2.0-py3-none-any.whl.metadata (4.4 kB)
+#9 2.989 Collecting exceptiongroup>=1.0.0rc8 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 3.025   Downloading exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)
+#9 3.107 Collecting tomli>=1.0.0 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 3.143   Downloading tomli-2.0.1-py3-none-any.whl.metadata (8.9 kB)
+#9 3.264 Collecting importlib-metadata>=0.12 (from pytest==7.4.4->-r requirements.txt (line 9))
+#9 3.297   Downloading importlib_metadata-6.7.0-py3-none-any.whl.metadata (4.9 kB)
+#9 3.443 Collecting typing-extensions>=4.6.0 (from exceptiongroup>=1.0.0rc8->pytest==7.4.4->-r requirements.txt (line 9))
+#9 3.498   Downloading typing_extensions-4.7.1-py3-none-any.whl.metadata (3.1 kB)
+#9 3.615 Collecting zipp>=0.5 (from importlib-metadata>=0.12->pytest==7.4.4->-r requirements.txt (line 9))
+#9 3.649   Downloading zipp-3.15.0-py3-none-any.whl.metadata (3.7 kB)
+#9 3.744 Downloading PyJWT-1.7.1-py2.py3-none-any.whl (18 kB)
+#9 3.793 Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+#9 3.827    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.6/94.6 kB 3.1 MB/s eta 0:00:00
+#9 3.867 Downloading ruamel.yaml-0.16.5-py2.py3-none-any.whl (123 kB)
+#9 3.895    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 123.3/123.3 kB 4.5 MB/s eta 0:00:00
+#9 3.930 Downloading itsdangerous-2.0.1-py3-none-any.whl (18 kB)
+#9 3.973 Downloading Werkzeug-2.0.3-py3-none-any.whl (289 kB)
+#9 4.011    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 289.2/289.2 kB 8.4 MB/s eta 0:00:00
+#9 4.053 Downloading gunicorn-20.0.4-py2.py3-none-any.whl (77 kB)
+#9 4.060    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 77.9/77.9 kB 18.3 MB/s eta 0:00:00
+#9 4.095 Downloading pytest-7.4.4-py3-none-any.whl (325 kB)
+#9 4.108    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.3/325.3 kB 33.4 MB/s eta 0:00:00
+#9 4.153 Downloading Jinja2-2.11.3-py2.py3-none-any.whl (125 kB)
+#9 4.161    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.7/125.7 kB 22.7 MB/s eta 0:00:00
+#9 4.202 Downloading MarkupSafe-1.1.1-cp37-cp37m-manylinux2010_x86_64.whl (33 kB)
+#9 4.241 Downloading click-8.1.8-py3-none-any.whl (98 kB)
+#9 4.249    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.2/98.2 kB 21.5 MB/s eta 0:00:00
+#9 4.294 Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+#9 4.333 Downloading importlib_metadata-6.7.0-py3-none-any.whl (22 kB)
+#9 4.396 Downloading pluggy-1.2.0-py3-none-any.whl (17 kB)
+#9 4.445 Downloading ruamel.yaml.clib-0.2.8-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl (551 kB)
+#9 4.464    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 551.1/551.1 kB 36.1 MB/s eta 0:00:00
+#9 4.499 Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+#9 4.537 Downloading iniconfig-2.0.0-py3-none-any.whl (5.9 kB)
+#9 4.599 Downloading packaging-24.0-py3-none-any.whl (53 kB)
+#9 4.608    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.5/53.5 kB 8.9 MB/s eta 0:00:00
+#9 4.649 Downloading typing_extensions-4.7.1-py3-none-any.whl (33 kB)
+#9 4.697 Downloading zipp-3.15.0-py3-none-any.whl (6.8 kB)
+#9 4.807 Installing collected packages: pyjwt, zipp, werkzeug, typing-extensions, tomli, ruamel.yaml.clib, packaging, MarkupSafe, itsdangerous, iniconfig, gunicorn, ruamel.yaml, Jinja2, importlib-metadata, exceptiongroup, pluggy, click, pytest, flask
+#9 5.508 Successfully installed Jinja2-2.11.3 MarkupSafe-1.1.1 click-8.1.8 exceptiongroup-1.3.1 flask-1.1.2 gunicorn-20.0.4 importlib-metadata-6.7.0 iniconfig-2.0.0 itsdangerous-2.0.1 packaging-24.0 pluggy-1.2.0 pyjwt-1.7.1 pytest-7.4.4 ruamel.yaml-0.16.5 ruamel.yaml.clib-0.2.8 tomli-2.0.1 typing-extensions-4.7.1 werkzeug-2.0.3 zipp-3.15.0
+#9 5.509 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#9 DONE 5.9s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.5s done
+#10 exporting manifest sha256:73f08ec4634f82b73432c200e2c58b823024d20fb99bf09a1b8733508801e789 done
+#10 exporting config sha256:87d6438a7bd7fa2c80271a48d4ecc4f8f16e03b34d10838cfd5d03a0a5b807b4 done
+#10 exporting attestation manifest sha256:1737f4353ca52a891852282e7202758c505c5ae10ece5f41f3ee9f2517b5f845 0.0s done
+#10 exporting manifest list sha256:b62d6ac167550b4542a711584c0716090526a902b25d91abb45c166162456f73 done
+#10 naming to docker.io/library/udacity-flask-eks:resubmit-20261118 done
+#10 DONE 0.6s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/9sysgjwzd9zke7x2cgbf69i3q
